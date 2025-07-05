@@ -1,0 +1,3579 @@
+{
+  "name": "satiago_weebhook2",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0d1163ca-e4e9-49f8-a48f-3e692db9eff3",
+              "leftValue": "={{ $json.body.texto }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2260,
+        340
+      ],
+      "id": "2618699a-6282-4302-a422-17a42004a2f2",
+      "name": "If1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9e665965-7071-4b1a-a056-f348d5fe9011",
+              "name": "telefono",
+              "value": "={{ $json.body.from }}",
+              "type": "string"
+            },
+            {
+              "id": "d61c64af-f638-4f3e-9e29-7050ea7f5b40",
+              "name": "=nombre",
+              "value": "={{ $json.body.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "b65570b4-119f-4356-99d4-6935781524bb",
+              "name": "mensaje",
+              "value": "={{ $json.body.texto }}",
+              "type": "string"
+            },
+            {
+              "id": "16833724-6f6b-4111-82e6-325398fa9545",
+              "name": "fecha_hora",
+              "value": "={{Date($json.body.fechaHora)}}",
+              "type": "string"
+            },
+            {
+              "id": "46ddbbec-a350-46bc-b2ab-d4771ea5c2f5",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2000,
+        320
+      ],
+      "id": "37680374-a679-4976-9c1b-9369b5917f5e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "448c4787-1bc9-467b-b5f8-c668a4431212",
+              "leftValue": "={{ $json[\"telefono\"] !== undefined }}",
+              "rightValue": "=0",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1100,
+        340
+      ],
+      "id": "8b1e6f2c-33bd-4759-9902-b457e29c10f6",
+      "name": "¿Existe el usuario?",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "telefono",
+              "lookupValue": "={{ $json.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1780,
+        320
+      ],
+      "id": "25a5d45f-9b06-4e2b-afc3-2bfdacbfc025",
+      "name": "Get Row",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "seleccion"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -140,
+        -280
+      ],
+      "id": "310d4a63-1752-4141-9ebc-b8451b483984",
+      "name": "update views",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "nombre": "={{ $('Edit Fields').item.json.nombre }}",
+            "estado": "Estado inicial"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -860,
+        620
+      ],
+      "id": "7255b197-5443-457c-b1d1-2deeb18dc137",
+      "name": "new user",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 967494605,
+          "mode": "list",
+          "cachedResultName": "historial",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=967494605"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "mensaje": "={{ $('Edit Fields').item.json.mensaje }}",
+            "fecha_hora": "={{ $('Edit Fields').item.json.fecha_hora }}",
+            "nombre": "={{ $('Edit Fields').item.json.nombre }}"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "mensaje",
+              "displayName": "mensaje",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -1820,
+        520
+      ],
+      "id": "fe62ede5-5b8b-46c7-be4f-931b6b4e0f0a",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "50344530-09e7-428e-a43c-12f4d7b89584",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "Estado inicial",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "inicio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0b0adeaa-1092-456a-8408-10572e85b7c0",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "seleccion",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "seleccion_1"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "981be901-83bb-413b-bc77-2a9950a2c577",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "new",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Crear reporte "
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "77aa80eb-f930-469c-a0df-545d1d68fe96",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "descrip",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "descripticion"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b27e08bb-de4b-4633-9f02-4bb093f93fc5",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "ubi",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Ubicacion"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "90ad649d-9652-4090-a5e5-b0418fd5d6df",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "evid",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "evidencias"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c97e0a06-75f4-4335-8ce6-706196577df0",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "Final",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "verificacion"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5c221a08-bfb8-485d-bc81-2ccd1d9d6c90",
+                    "leftValue": "={{ $json[\"estado\"] }}",
+                    "rightValue": "cons",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Consultar reporte"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -680,
+        520
+      ],
+      "id": "777e9fa4-a597-46f1-951d-fbcdcd903335",
+      "name": "Primer Switch"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -2480,
+        340
+      ],
+      "id": "b5d602f1-a398-4502-afec-9b574f271d13",
+      "name": "Webhook2",
+      "webhookId": "0676ef1e-7112-479a-aa4f-fc2319ab384e"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Hola. Bienvenido al Chat Bot Tlalpan.\\n\\nSelecciona una opción: \\n1️⃣ Crear un reporte \\n2️⃣ Consultar reporte \\n3️⃣ Hablar con un asesor \\n\\n (Puedes responder con el número de la opción)\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -400,
+        -280
+      ],
+      "id": "1c366c46-67b3-454a-bf99-c9b9d4a4763b",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"CRear nuevo reporte 1  2  3  4  5\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        -460
+      ],
+      "id": "d840b53a-294d-4c1f-a7f6-421062a10330",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Consultar reporte\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        -300
+      ],
+      "id": "b50eaf4f-ad91-4a2c-b349-645d35750a4d",
+      "name": "Respond to Webhook3"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "new",
+            "id_reporte": "={{$json[\"ID\"]}}"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_reporte",
+              "displayName": "id_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1300,
+        -460
+      ],
+      "id": "2e082197-933e-44d7-95af-3bf2eef0cb4c",
+      "name": "update views2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "cons"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1220,
+        -280
+      ],
+      "id": "b81ec96e-18d0-4219-9d00-feabfe707e03",
+      "name": "update views3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "50344530-09e7-428e-a43c-12f4d7b89584",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "nuevo reporte"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0b0adeaa-1092-456a-8408-10572e85b7c0",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "consultar reporte"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5537782e-6824-46b2-8e79-9e149a0de0e8",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "again"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        380,
+        -240
+      ],
+      "id": "7f5153b6-a208-4d18-bb94-ec41c2fe5d17",
+      "name": "Primer Switch1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Hola. Bienvenido al Chat Bot Tlalpan.\\n\\nSelecciona una opción: \\n1️⃣ Crear un reporte \\n2️⃣ Consultar reporte \\n3️⃣ Hablar con un asesor \\n\\n (Puedes responder con el número de la opción)\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        -100
+      ],
+      "id": "1cd06451-6789-42c2-ba79-cec1aee261d4",
+      "name": "Respond to Webhook4"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "50344530-09e7-428e-a43c-12f4d7b89584",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "tipo 1"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "0b0adeaa-1092-456a-8408-10572e85b7c0",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "tipo 2"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5537782e-6824-46b2-8e79-9e149a0de0e8",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "again"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        160,
+        180
+      ],
+      "id": "1a8b6b2b-27a1-46c9-8831-eef2488f8ad7",
+      "name": "Primer Switch2"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "=rep-{{ Date.now() }}",
+            "nombre": "={{ $json.nombre }}",
+            "telefono": "={{ $json.telefono }}",
+            "fecha_hora": "={{ $('Edit Fields').item.json.fecha_hora }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1120,
+        -460
+      ],
+      "id": "0e842867-83a2-4f4e-bbdf-1887fa8fa7b3",
+      "name": "new report",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{$json[\"id_reporte\"]}}",
+            "tipo_reporte": "1"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        460,
+        0
+      ],
+      "id": "db0163b9-78b6-4f63-8855-7efb0dfd542b",
+      "name": "new report1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{$json[\"id_reporte\"]}}",
+            "tipo_reporte": "2"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        180
+      ],
+      "id": "4896c65a-7955-4c0a-b0c4-0b3765b9cb15",
+      "name": "new report2",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Descripción\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        120
+      ],
+      "id": "cb77b5ec-d5cb-4763-a920-abcb4938ce9e",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Agregue una desripción de\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        460,
+        360
+      ],
+      "id": "5ae4eeef-cfaa-48bb-96bc-fa15038772a1",
+      "name": "Respond to Webhook5"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "descrip"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_reporte",
+              "displayName": "id_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        700,
+        60
+      ],
+      "id": "5e4254b5-97b2-4ebe-9116-dc476824694f",
+      "name": "update views4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "ubi"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_reporte",
+              "displayName": "id_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        60,
+        460
+      ],
+      "id": "614a2441-efb5-4621-b213-a1c5388cc71c",
+      "name": "update views5",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{$json[\"id_reporte\"]}}",
+            "descripcion": "={{ $('Edit Fields').item.json.mensaje }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -160,
+        460
+      ],
+      "id": "b3a0b5e1-5556-4d7e-b1d6-da0a4d6dad3a",
+      "name": "new report3",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{$json[\"id_reporte\"]}}",
+            "ubicacion ": "={{ $('Edit Fields').item.json.mensaje }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -160,
+        640
+      ],
+      "id": "de990092-b136-4e27-a2de-a64634b433ba",
+      "name": "new report4",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "evid"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_reporte",
+              "displayName": "id_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        100,
+        660
+      ],
+      "id": "3e9aaa5c-51ee-424c-a663-244c4f363902",
+      "name": "update views6",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Compartanos la ubicación del problema\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        280,
+        460
+      ],
+      "id": "5cfa3c66-1cf0-4701-a792-61ace8d9b5b3",
+      "name": "Respond to Webhook6"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Para que tu proceso vaya más rápido, ¿gusta agregar una evidencia?\\n1: sí\\n2: no\"\n}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        700
+      ],
+      "id": "eb7eb350-15c1-469a-84d1-ea5022f9e9e7",
+      "name": "Respond to Webhook7"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "4eae1e4a-5c3c-46cf-a1dc-91eb39ad00f6"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "si"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cc39646e-4610-4107-bd8c-b9e5190ebe72",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a55f2b1d-790e-4ce8-b96b-250672dcdb8b",
+                    "leftValue": "={{ $('Webhook2').item.json.body.imagen_url }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "imagen"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "20e25c53-7db1-4c6f-a3b3-31393e08f604",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "again"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -300,
+        740
+      ],
+      "id": "cab4461b-3898-47e6-a25e-4ffb06029bb1",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{$json[\"id_reporte\"]}}",
+            "evidencia": "si"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "evidencia_recurso",
+              "displayName": "evidencia_recurso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        120,
+        820
+      ],
+      "id": "9763a8bd-d2c7-4594-a6f5-4fe31560c6d5",
+      "name": "new report6",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Porfavor agregue una fotografia del problema\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        820
+      ],
+      "id": "f7c2f098-2644-458d-b096-13a8e14c4268",
+      "name": "Respond to Webhook8"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{$json[\"id_reporte\"]}}",
+            "evidencia": "no",
+            "evidencia_recurso": "null"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "evidencia_recurso",
+              "displayName": "evidencia_recurso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        360,
+        980
+      ],
+      "id": "b4072cc5-0e19-4373-a44f-1b9a43742c4e",
+      "name": "new report7",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"text\": \"Para que tu proceso vaya más rápido, ¿gusta agregar una evidencia?\\n1: sí\\n2: no\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -60,
+        1200
+      ],
+      "id": "64eb6c05-4f2a-4d8a-9ee3-c2e383306dad",
+      "name": "Respond to Webhook9"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "Final"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_reporte",
+              "displayName": "id_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        760,
+        980
+      ],
+      "id": "556316d5-dec2-43f0-92e3-f1e622e26bf8",
+      "name": "update views8",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ID": "={{$json[\"id_reporte\"]}}",
+            "evidencia_recurso": "={{ $('Webhook2').item.json.body.imagen_url }}"
+          },
+          "matchingColumns": [
+            "ID"
+          ],
+          "schema": [
+            {
+              "id": "ID",
+              "displayName": "ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tipo_reporte",
+              "displayName": "tipo_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "descripcion",
+              "displayName": "descripcion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "ubicacion ",
+              "displayName": "ubicacion ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia",
+              "displayName": "evidencia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "evidencia_recurso",
+              "displayName": "evidencia_recurso",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        120,
+        1080
+      ],
+      "id": "bafedc1f-4d1d-44d9-aa04-550066c1ffa6",
+      "name": "new report8",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"text\": \"📋 *Resumen del reporte recibido:*\\n\\n🔹 *ID:* {{ $json.ID }}\\n🔹 *Nombre:* {{ $json.nombre }}\\n🔹 *Teléfono:* {{ $json.telefono }}\\n🔹 *Fecha y hora:* {{ $json.fecha_hora }}\\n🔹 *Tipo de reporte:* {{ $json.tipo_reporte }}\\n🔹 *Descripción:* {{ $json.descripcion }}\\n🔹 *Ubicación:* {{ $json['ubicacion'] }}\\n🔹 *¿Incluye evidencia?:* {{ $json.evidencia }}\\n🔹 *Imagen adjunta:* {{ $json.evidencia_recurso }}\\n\\n¿Desea modificar alguno de estos datos? 1:Si 2:No\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1260,
+        1060
+      ],
+      "id": "8d2afaa5-398b-4000-8292-ebe202f8923e",
+      "name": "Respond to Webhook10"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1346224716,
+          "mode": "list",
+          "cachedResultName": "reportes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1346224716"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "telefono",
+              "lookupValue": "={{ $json.telefono }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1040,
+        1040
+      ],
+      "id": "73a63b15-eff6-45d1-91c3-b8d1d4b391c8",
+      "name": "Get Row1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "4eae1e4a-5c3c-46cf-a1dc-91eb39ad00f6"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "si"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cc39646e-4610-4107-bd8c-b9e5190ebe72",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a55f2b1d-790e-4ce8-b96b-250672dcdb8b",
+                    "leftValue": "={{ $('Webhook2').item.json.body.imagen_url }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "imagen"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "20e25c53-7db1-4c6f-a3b3-31393e08f604",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "again"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1420,
+        520
+      ],
+      "id": "88c1b39a-7c1a-4815-a6c3-533717c3ff3d",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "4eae1e4a-5c3c-46cf-a1dc-91eb39ad00f6"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "si"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cc39646e-4610-4107-bd8c-b9e5190ebe72",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "no"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a55f2b1d-790e-4ce8-b96b-250672dcdb8b",
+                    "leftValue": "={{ $('Webhook2').item.json.body.imagen_url }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "imagen"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "20e25c53-7db1-4c6f-a3b3-31393e08f604",
+                    "leftValue": "={{ $('Edit Fields').item.json.mensaje }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "exists",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "again"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -500,
+        1000
+      ],
+      "id": "10c105f9-ec2d-4d8e-856f-fe3d264de629",
+      "name": "Switch2"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "=¿Desea modificar alguno de estos datos? 1:Si 2:No\"",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        -300,
+        1400
+      ],
+      "id": "f4f503a4-c407-4f8c-a04b-326d296b82c8",
+      "name": "Respond to Webhook11"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ",
+          "mode": "list",
+          "cachedResultName": "Información",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1901486033,
+          "mode": "list",
+          "cachedResultName": "estado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kSuAvhmkZky_03zy_NRbD5tI9gGaG1hF3JHY9agefkQ/edit#gid=1901486033"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telefono": "={{ $('Edit Fields').item.json.telefono }}",
+            "estado": "Final"
+          },
+          "matchingColumns": [
+            "telefono"
+          ],
+          "schema": [
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_reporte",
+              "displayName": "id_reporte",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        280,
+        1260
+      ],
+      "id": "d444def0-459f-4498-88dd-527e99500ff0",
+      "name": "update views9",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Existe el usuario?": {
+      "main": [
+        [
+          {
+            "node": "Primer Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "new user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Row": {
+      "main": [
+        [
+          {
+            "node": "¿Existe el usuario?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Primer Switch": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Primer Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Primer Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "new report3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "new report4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        []
+      ]
+    },
+    "new user": {
+      "main": [
+        [
+          {
+            "node": "Primer Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook1": {
+      "main": [
+        [
+          {
+            "node": "update views",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook2": {
+      "main": [
+        [
+          {
+            "node": "new report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook3": {
+      "main": [
+        [
+          {
+            "node": "update views3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Primer Switch1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report": {
+      "main": [
+        [
+          {
+            "node": "update views2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Primer Switch2": {
+      "main": [
+        [
+          {
+            "node": "new report1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "new report2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report1": {
+      "main": [
+        [
+          {
+            "node": "update views4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report2": {
+      "main": [
+        [
+          {
+            "node": "update views4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update views4": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report3": {
+      "main": [
+        [
+          {
+            "node": "update views5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report4": {
+      "main": [
+        [
+          {
+            "node": "update views6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update views5": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update views6": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook7": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "new report6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "new report7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "new report8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report6": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report7": {
+      "main": [
+        [
+          {
+            "node": "update views8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update views8": {
+      "main": [
+        [
+          {
+            "node": "Get Row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "new report8": {
+      "main": [
+        [
+          {
+            "node": "update views8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook10": {
+      "main": [
+        []
+      ]
+    },
+    "Get Row1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [],
+        [],
+        [],
+        [
+          {
+            "node": "Respond to Webhook11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0cb2423e-5ae9-42f3-98e6-cec424f7d252",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "zr1zAn2BboINzk1p",
+  "tags": []
+}
