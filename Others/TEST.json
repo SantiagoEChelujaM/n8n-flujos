@@ -1,0 +1,391 @@
+{
+  "name": "TEST",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e27c70d2-3d75-4360-8a9b-f14b91969cb9",
+              "leftValue": "={{ $json.subject }}",
+              "rightValue": "Weekly TikTok Report -",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1360,
+        -180
+      ],
+      "id": "0ee2d4cf-519f-48f7-9642-11f5b653cb72",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1940,
+        -180
+      ],
+      "id": "ffa3d4e6-33d7-4a77-b5e0-f7953b72674c",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "stM1r9lQpsyTJZYP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 1,
+        "simple": false,
+        "filters": {},
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -1680,
+        -180
+      ],
+      "id": "b1e62726-80af-4565-bf25-a1ab64bab0d8",
+      "name": "Gmail",
+      "webhookId": "ace99ada-0188-4ba3-9518-47958743cec2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "stM1r9lQpsyTJZYP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Based on the key themes and performance patterns of the top 5 ad groups ({{ $('Top 5').item.json['Ad group'] }}), and using the current ad group {{ $json['Ad Group'] }} as a creative foundation, generate three innovative TikTok creative ideas.\n\nAlso consider the video descriptions: {{ $json['Video desc'] }} to ensure stylistic alignment and message consistency.\n\nEach concept should reflect current TikTok trends, capture attention in the first few seconds, and reinforce the brand message.\n\nReturn the response in clean, professional **HTML** format, structured for executive email use. Use clear headings, bullet points or short paragraphs, and include a brief intro and closing paragraph.\n\nAvoid raw markdown or code blocks. Output should be directly usable as HTML email content.\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        380,
+        -100
+      ],
+      "id": "0b0a2de7-04cb-4f4a-90eb-0acca7f4a672",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        300,
+        120
+      ],
+      "id": "b96238d1-a460-42b1-a8f1-2c5043ef2f18",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "WOPMLT8ZoxPxqH3h",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1zjutInpRmICEFlTAjtV1BqgzKZrpBLVN-Ji7zcoFKyY",
+          "mode": "list",
+          "cachedResultName": "similitudes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zjutInpRmICEFlTAjtV1BqgzKZrpBLVN-Ji7zcoFKyY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 977965428,
+          "mode": "list",
+          "cachedResultName": "similitudes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zjutInpRmICEFlTAjtV1BqgzKZrpBLVN-Ji7zcoFKyY/edit#gid=977965428"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        0,
+        -100
+      ],
+      "id": "de35971e-9fa9-4fa1-9bf5-0d1cbd668c06",
+      "name": "Similitudes",
+      "retryOnFail": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1sMM1bDKn05MhqGxPpaW6IhpWn8NXA4ttWa1uHI5hAWg",
+          "mode": "list",
+          "cachedResultName": "resultado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sMM1bDKn05MhqGxPpaW6IhpWn8NXA4ttWa1uHI5hAWg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1473378870,
+          "mode": "list",
+          "cachedResultName": "resultado",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1sMM1bDKn05MhqGxPpaW6IhpWn8NXA4ttWa1uHI5hAWg/edit#gid=1473378870"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -240,
+        -100
+      ],
+      "id": "c8a81b5e-e03d-49d4-9e0d-a24038f4e99d",
+      "name": "Top 5",
+      "retryOnFail": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ymvZ8fdPZcBNGc3h",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "chelujamartin124@gmail.com",
+        "subject": "Prueba",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        740,
+        -100
+      ],
+      "id": "806f9d26-0021-46d7-953e-febb6986414b",
+      "name": "Gmail1",
+      "webhookId": "5aa28144-421e-459b-8727-e831cc97d5b8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "stM1r9lQpsyTJZYP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "attachment_0",
+        "name": "={{$binary.attachment_0.fileName}}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1tgv17VvE7UTBt9xmrNADcLmTU-7bpRrg",
+          "mode": "list",
+          "cachedResultName": "TEST",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1tgv17VvE7UTBt9xmrNADcLmTU-7bpRrg"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -840,
+        -220
+      ],
+      "id": "a93d1ebe-120c-4ae6-aed7-1b4dccff06f3",
+      "name": "Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "lkqI59Nke2uIvFXR",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $json.id }}",
+        "simple": false,
+        "options": {
+          "downloadAttachments": true
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -1100,
+        -220
+      ],
+      "id": "880cc84d-bfb6-4499-836a-ea48d55ccbca",
+      "name": "Gmail2",
+      "webhookId": "ace99ada-0188-4ba3-9518-47958743cec2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "stM1r9lQpsyTJZYP",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Similitudes": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Top 5": {
+      "main": [
+        [
+          {
+            "node": "Similitudes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Gmail2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail2": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Top 5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "029cd514-1c1b-4b31-a0f5-e6baae706a11",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "ejC7JNGKuiiOtp0G",
+  "tags": []
+}
